@@ -1,9 +1,10 @@
 <?php
 
-	$username = 'root';
-	$host = 'localhost';
-	$password = 'DyFroaHylt1';
-	$database = 'hackathon';
+	$cfg = IniConfiguration::getInstance();
+	$username = $cfg->USERNAME;
+	$host = $cfg->HOST;
+	$password = $cfg->PASSWORD;
+	$database = $cfg->DATABASE;
 	
 	$db = new mysqli($host, $username, $password, $database);
 	
