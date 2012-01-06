@@ -8,6 +8,6 @@
 </style>
 </head>
 <body>
-<h2>ERROR: 404 not found</h2>
+<h2>ERROR: <?php echo $error ?></h2>
 </body>
 </html>

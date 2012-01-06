@@ -35,41 +35,15 @@ function shutdown()
 // (passed as a URL parameter by the toolbar) is validated against this list. Each of these
 // actions correspond to a file located in toolbar_service/controllers/
 $controllers = array(
-	'admin',
-	'save_settings',
-
-	'new_toolbar',
-	'edit_toolbar',
-	'save_toolbar',
-
-	'publish_toolbar',
-	'dashboard',
-	'delete_toolbar',
-
-	'notification',
-	'messaging',
-	'edit_message',
-	'expire_message',
-	'preview_notification',
 
 	'login',
 	'logout',
 	'refresh_session',  //causes the session to be kept alive (basically a no-op)
 
-	'monitor', 			//very simple script to check if app is running
-	'get_report',
-	'reporting',
-	'upload',
-
-	'rewards_user_data',		  // allows you to edit a user's toolbar data.
-	'logs',
-	'list_binaries',
 	'add_to_wishlist',
 	'google_shopping',
 	'product_detail',
-	'track_page',
-
-	'binary_update'
+	'track_page'
 );
 
 $action_param = 'action';  // Name of the $_REQUEST param used to decide which controller to run
