@@ -50,20 +50,24 @@ Your Wishlist
 <?php
         while ($row = $result->fetch_object())
         {
-                echo "<tr id='$row->id'>";
+                $prodId = htmlentities($row->id);
+                $prodName = htmlentities($row->product_name);
+                $url = htmlentities($row->url);
+                $price = htmlentities($row->price);
+                
+                echo "<tr id='$prodId'>";
                 echo "<td id='wishItem'>";
-                echo "Item: $row->product_name";
+                echo "Item: $prodName";
                 echo "<br/>";
-                echo "Url: <a href='$row->url' >$row->url</a>";
+                echo "Url: <a href='$url' >$url</a>";
                 echo "<br/>";
-                echo "Price: $row->price";
+                echo "Price: $price";
                 echo "<br/>";
-                echo "<a href='shopping.i-wishlist.dev/?action=product_detail&wid=$row->id'>View More</a>";
+                echo "<a href='shopping.i-wishlist.dev/?action=product_detail&wid=$prodId'>View More</a>";
                 echo "</td>";
-                echo "<td class='actionItem' id='$row->id'>";
+                echo "<td class='actionItem' id='$prodId'>";
                 echo "<div class='action'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></div>" . "\n";
                 echo "<div class='action'><img src='/images/pencil.png' title='Edit' class='action'/></div>" . "\n";
-                echo "<div class='action'><img src='/images/move.png' title='Move' class='action'/></div>" . "\n";
                 echo "</td>";
                 echo "</tr>";
         }
