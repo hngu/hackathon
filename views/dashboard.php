@@ -112,8 +112,8 @@ while ($row = $result->fetch_object()){
 	echo "<div class='item_price'>Price: $$price</price>";
 	echo "</td>";
 	echo "<td class='actionItem' id='$prodId'>";
-	echo "<div class='action'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></div>" . "\n";
-	echo "<div class='action'><img src='/images/pencil.png' title='Edit'/></div>" . "\n";
+	echo "<div class='action'><a href='#'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></a></div>" . "\n";
+	echo "<div class='action'><a href='?action=edit_item&wid=$prodId'><img src='/images/pencil.png' title='Edit'/></a></div>" . "\n";
 	echo "<div class='view_more'><a href='?action=product_detail&wid=$prodId'><img src='/images/view_more.png' title='View More'/></a></div>";
 	echo "</td>";
 	echo "</tr>";
