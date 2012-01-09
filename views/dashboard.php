@@ -55,13 +55,18 @@
     .wish_row:hover td {
     	background-color: yellow;
 	}
-	.item_name {
+	.item_name{
 		font-size: 24px;
 		color: #0091B5;
 		margin: 10px 0px 10px 30px;
 	}
-        .item_name a:visited {
-		text-decoration: none; color: #0091B5;
+	.item_name a:link {
+		text-decoration: none; 
+		color: #0091B5;
+	}
+    .item_name a:visited {
+		text-decoration: none; 
+		color: #0091B5;
 	}
 	.item_url {
 		margin: 0px 0px 10px 30px;
