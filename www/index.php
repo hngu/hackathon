@@ -43,6 +43,7 @@ $controllers = array(
 	'add_to_wishlist',
 	'google_shopping',
 	'product_detail',
+        'update_item',
 	'track_page'
 );
 

@@ -117,7 +117,7 @@
                 //If there is a price change, update the database 
                 if($priceChange)
                 {
-                        $updateQuery = "UPDATE wishlist SET new_price=" . $curr_price . ", date_time=NOW() WHERE id=" . $id;
+                        $updateQuery = "UPDATE wishlist SET new_price=" . $curr_price . ", wish_date=NOW() WHERE id=" . $id;
                 }
                 
                 $html->clear();

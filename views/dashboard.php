@@ -4,6 +4,7 @@
 <title>My Wishlist </title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="Content-Language" content="en-us">
+<link rel="stylesheet" href="stylesheets/boxy.css" type="text/css" />
 <style>
     body {
         background: url("http://static10.gog.com/www/forum_carbon/-img/body_bg.jpg") repeat-x scroll 0 0 #676767;
@@ -85,6 +86,10 @@
 	a:hover {
 		text-decoration: underline; color: #0000FF;
 	}
+        
+        p.editForm {
+            color:#000000;
+        }
 </style>
 </head>
 <body>
@@ -102,6 +107,7 @@ while ($row = $result->fetch_object()){
 	$prodName = htmlentities($row->product_name);
 	$url = htmlentities($row->url);
 	$price = htmlentities($row->price);
+        $comment = htmlentities($row->comment);
 
 	if($n%2) {
 		echo "<tr id='$prodId' class='wish_row'>";
@@ -116,7 +122,7 @@ while ($row = $result->fetch_object()){
 	echo "</td>";
 	echo "<td class='actionItem' id='$prodId'>";
 	echo "<div class='action'><a href='#'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></a></div>" . "\n";
-	echo "<div class='action'><a href='?action=edit_item&wid=$prodId'><img src='/images/pencil.png' title='Edit'/></a></div>" . "\n";
+	echo "<div class='action'><a href='#' onclick='showEditBox(\"$prodId\", \"$prodName\",\"$url\",\"$comment\",\"$price\");'><img src='/images/pencil.png' title='Edit'/></a></div>" . "\n";
 	echo "<div class='view_more'><a href='?action=product_detail&wid=$prodId'><img src='/images/view_more.png' title='View More'/></a></div>";
 	echo "</td>";
 	echo "</tr>";
@@ -127,4 +133,49 @@ while ($row = $result->fetch_object()){
 </table>
 </div>
 </body>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+<script type='text/javascript' src='javascripts/jquery.boxy.js'></script>
+<script>
+function showEditBox(wid, title, url, comments, price)
+{
+    new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/>Price:<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
+        {title:"Edit item", modal:true}
+        );
+    
+    $('input#title').val(title);
+    $('input#url').val(url);
+    $('textarea#comments').val(comments);
+    $('input#price').val(price);
+    $('input#wid').val(wid);
+    
+    $('input#save').click(function(){
+        var title = $('input#title').val();
+        var url = $('input#url').val();
+        var comments = $('textarea#comments').val();
+        var price = $('input#price').val();
+        var wid = $('input#wid').val();
+        
+        $(this).attr("disabled", true);
+        $('img#loader').show();
+        
+        $.post('http://shopping.i-wishlist.dev/?action=update_item',
+			{title: title, url: url, price: price, comments: comments, wid: wid},
+			function(data)
+			{
+				if(data.isSuccess)
+				{
+                                        $('p.editForm').append(data.response);
+                                        $('img#loader').hide();
+					
+				}
+				else
+				{
+                                        $('img#loader').hide();
+					alert(data.response);
+                                        console.log(data.response);
+				}
+			}, "json");
+    });
+}
+</script>
 </html>
