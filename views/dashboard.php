@@ -4,6 +4,7 @@
 <title>My Wishlist </title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="Content-Language" content="en-us">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
     body {
         background: url("http://static10.gog.com/www/forum_carbon/-img/body_bg.jpg") repeat-x scroll 0 0 #676767;
@@ -72,7 +73,17 @@
 		margin: 0px 0px 10px 30px;
 	}
 	.item_price {
+		float: left;
 		margin: 0px 0px 20px 30px;
+	}
+	.item_price_change {
+		float: left;
+		margin: 0px 0px 20px 30px;
+	}
+	.item_price_diff {
+		float: right;
+		margin: 5px 0px 20px 5px;
+		font-size: 14px;
 	}
 	.view_more {
 		float: right;
@@ -91,6 +102,34 @@
 		text-decoration: underline; color: #0000FF;
 	}
 </style>
+<script>
+$(document).ready(function() {
+	$('tr.wish_row').each(function(index) {
+		var id = $(this).attr('id');
+		$.ajax({
+			url: '?action=price_change&wid='+id,
+			cache: false,
+			async: false,
+			dataType: "html",
+			success: function(data) {
+				var name = 'item_price_change_' + id;
+				var fill_in = '';
+				if(data > 0) {
+					fill_in = "<img src='/images/up.png'/>" + '<div class="item_price_diff" color="green">$' + Math.abs(data).toFixed(2) + '</div>';
+				} else if(data < 0) {
+					fill_in = "<img src='/images/down.png'/>" + '<div class="item_price_diff" color="red">$' + Math.abs(data).toFixed(2) + '</div>';
+				} else if(data == 0) {
+					fill_in = "<img src='/images/unchanged.png'/>" + '<div class="item_price_diff" color="gray">$' + Math.abs(data).toFixed(2) + '</div>';
+				} else {
+					fill_in = "Price Error";
+				}
+				$("#"+name).html(fill_in);
+			}
+		});
+		
+	});
+});
+</script>
 </head>
 <body>
 <h2>
@@ -117,7 +156,8 @@ while ($row = $result->fetch_object()){
 	echo "<div class='item_name'><a href='?action=product_detail&wid=$prodId'>$prodName</a></div>";
 	$url_text = strlen($url) < 80 ? $url : (substr($url, 0, 80).'...');
 	echo "<div class='item_url'><a href='$url' target='_blank'>$url_text</a></div>";
-	echo "<div class='item_price'>Price: $$price</price>";
+	echo "<div class='item_price'>Price: $$price</div>";
+	echo "<div class='item_price_change' id='item_price_change_$prodId'></div>";
 	echo "</td>";
 	echo "<td class='actionItem' id='$prodId'>";
 	echo "<div class='action'><a href='#'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></a></div>" . "\n";
