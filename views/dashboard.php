@@ -60,6 +60,9 @@
 		color: #0091B5;
 		margin: 10px 0px 10px 30px;
 	}
+        .item_name a:visited {
+		text-decoration: none; color: #0091B5;
+	}
 	.item_url {
 		margin: 0px 0px 10px 30px;
 	}
@@ -106,7 +109,7 @@ while ($row = $result->fetch_object()){
 		echo "<tr id='$prodId' class='wish_row even'>";
 	}
 	echo "<td id='wishItem'>";
-	echo "<div class='item_name'>$prodName</div>";
+	echo "<div class='item_name'><a href='?action=product_detail&wid=$prodId'>$prodName</a></div>";
 	$url_text = strlen($url) < 80 ? $url : (substr($url, 0, 80).'...');
 	echo "<div class='item_url'><a href='$url' target='_blank'>$url_text</a></div>";
 	echo "<div class='item_price'>Price: $$price</price>";

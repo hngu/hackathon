@@ -15,7 +15,7 @@
     div#mainContainer {
         margin-left: auto;
         margin-right: auto;
-        width: 80%;
+        width: 60%;
         background-color: #FFFFFF;
         position: relative;
         color: #333333;
@@ -38,7 +38,7 @@ Product Detail:
 <br/>
 Name: <?php echo $name ?>
 <br/>
-Url: <?php echo $url ?>
+Url: <?php echo "<a href='$url'>"; $url_text = strlen($url) < 80 ? $url : (substr($url, 0, 80).'...'); echo "$url_text</a>"; ?>
 <br/>
 Price: <?php echo $price ?>
 <br/>

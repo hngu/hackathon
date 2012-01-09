@@ -2,7 +2,10 @@
         ini_set("memory_limit","128M");
         require_once '../lib/simple_html_dom.php';
         
-	
+	$username = 'root';
+	$host = 'localhost';
+	$password = 'DyFroaHylt1';
+	$database = 'hackathon';
 	
 	$db = new mysqli($host, $username, $password, $database);
 	
