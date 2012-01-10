@@ -3,7 +3,6 @@
 	require_once "dblib.php";
         function add_to_wishlist()
         {
-				$db = getDB();
                 if(isset($_POST['title']) && isset($_POST['url']) && isset($_POST['price']) && isset($_POST['comments']))
                 {
                         $db = getDB();
