@@ -73,11 +73,15 @@
 	.item_url {
 		margin: 0px 0px 10px 30px;
 	}
-	.item_price {
+	.price_tag {
 		float: left;
 		margin: 0px 0px 20px 30px;
 	}
-	.item_price_change {
+	.current_price {
+		float: left;
+		margin: 0px 0px 20px 0px;
+	}
+	.price_change {
 		float: left;
 		margin: 0px 0px 20px 30px;
 	}
@@ -102,36 +106,32 @@
 	a:hover {
 		text-decoration: underline; color: #0000FF;
 	}
-        
-        p.editForm {
-            color:#000000;
-        }
+	p.editForm {
+        color:#000000;
+    }
 </style>
 <script>
 $(document).ready(function() {
 	$('tr.wish_row').each(function(index) {
 		var id = $(this).attr('id');
-		$.ajax({
-			url: '?action=price_change&wid='+id,
-			cache: false,
-			async: false,
-			dataType: "html",
-			success: function(data) {
-				var name = 'item_price_change_' + id;
-				var fill_in = '';
-				if(data > 0) {
-					fill_in = "<img src='/images/up.png'/>" + '<div class="item_price_diff" color="green">$' + Math.abs(data).toFixed(2) + '</div>';
-				} else if(data < 0) {
-					fill_in = "<img src='/images/down.png'/>" + '<div class="item_price_diff" color="red">$' + Math.abs(data).toFixed(2) + '</div>';
-				} else if(data == 0) {
-					fill_in = "<img src='/images/unchanged.png'/>" + '<div class="item_price_diff" color="gray">$' + Math.abs(data).toFixed(2) + '</div>';
-				} else {
-					fill_in = "Price Error";
-				}
-				$("#"+name).html(fill_in);
-			}
-		});
-		
+		var name = 'item_price_change_' + id;
+		var price = $("#wishlist_price_"+id).text();
+		var new_price = $("#current_price_"+id).text();
+		var price_diff = new_price - price;
+		var fill_in = '';
+		if(price_diff > 0) {
+			fill_in = "<img src='/images/up.png'/>" + '<div class="item_price_diff" color="green">$' + Math.abs(price_diff).toFixed(2);
+			fill_in += ' (+' + (100*price_diff/price).toFixed(2) + '%)</div>';
+		} else if(price_diff < 0) {
+			fill_in = "<img src='/images/down.png'/>" + '<div class="item_price_diff" color="red">$' + Math.abs(price_diff).toFixed(2);
+			fill_in += ' (' + (100*price_diff/price).toFixed(2) + '%)</div>';
+		} else if(price_diff == 0) {
+			fill_in = "<img src='/images/unchanged.png'/>" + '<div class="item_price_diff" color="gray">$' + Math.abs(price_diff).toFixed(2);
+			fill_in += '</div>';
+		} else {
+			fill_in = "Price Error";
+		}
+		$("#"+name).html(fill_in);
 	});
 });
 </script>
@@ -143,7 +143,7 @@ Your Wishlist
 <div id="mainContainer">
 <p>
 <table class="wishlist">
-<tr id="top-row"><td id="tl"></td><td></td><td id="tr"></td></tr>
+<tr id="top-row"><td id="tl" colspan="2"><div class='action' style="float:right; margin-right: 20px;"><a href='#' onclick='showEditBox("", "", "", "", "0.00");'><img src='/images/add.png' title='Add New'/></a></div></td><td id="tr"></td></tr>
 <?php
 $n = 1;
 while ($row = $result->fetch_object()){
@@ -157,7 +157,9 @@ while ($row = $result->fetch_object()){
         $replace = "\\n";
         $comment = str_replace($replaceChars, $replace, $comment);
         
-
+	$newprice = htmlentities($row->new_price);
+	if($newprice == '0.00') $newprice = $price;
+        
 	if($n%2) {
 		echo "<tr id='$prodId' class='wish_row'>";
 	} else {
@@ -167,8 +169,10 @@ while ($row = $result->fetch_object()){
 	echo "<div class='item_name'><a href='?action=product_detail&wid=$prodId'>$prodName</a></div>";
 	$url_text = strlen($url) < 80 ? $url : (substr($url, 0, 80).'...');
 	echo "<div class='item_url'><a href='$url' target='_blank'>$url_text</a></div>";
-	echo "<div class='item_price'>Price: $$price</div>";
-	echo "<div class='item_price_change' id='item_price_change_$prodId'></div>";
+	echo "<div class='price_tag'>Wishlist Price: $</div><div class='current_price' id='wishlist_price_$prodId'>$price</div>";
+	echo "<div></div>";
+	echo "<div class='price_tag'>Current Price: $</div><div class='current_price' id='current_price_$prodId'>$newprice</div>";
+	echo "<div class='price_change' id='item_price_change_$prodId'></div>";
 	echo "</td>";
 	echo "<td class='actionItem' id='$prodId'>";
 	echo "<div class='action'><a href='#'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></a></div>" . "\n";
@@ -183,13 +187,14 @@ while ($row = $result->fetch_object()){
 </table>
 </div>
 </body>
-<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
 <script type='text/javascript' src='javascripts/jquery.boxy.js'></script>
 <script>
 function showEditBox(wid, title, url, comments, price)
 {
-    new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/>Price: $<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
-        {title:"Edit item", modal:true}
+    var box_title = (wid) ? "Edit Item" : "Add New Item";
+    
+    new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/>Price:<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
+        {title:box_title, modal:true}
         );
     
     $('input#title').val(title);
@@ -207,8 +212,9 @@ function showEditBox(wid, title, url, comments, price)
         
         $(this).attr("disabled", true);
         $('img#loader').show();
-        
-        $.post('http://shopping.i-wishlist.dev/?action=update_item',
+
+        var box_url = 'http://shopping.i-wishlist.dev/?action=' + ((wid) ? 'update_item' : 'add_to_wishlist');
+        $.post(box_url,
 			{title: title, url: url, price: price, comments: comments, wid: wid},
 			function(data)
 			{
@@ -222,7 +228,6 @@ function showEditBox(wid, title, url, comments, price)
 				{
                                         $('img#loader').hide();
 					alert(data.response);
-                                        console.log(data.response);
 				}
 			}, "json");
     });

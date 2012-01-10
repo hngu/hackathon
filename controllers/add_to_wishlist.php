@@ -3,16 +3,16 @@
 	require_once "dblib.php";
         function add_to_wishlist()
         {
-
+				$db = getDB();
                 if(isset($_POST['title']) && isset($_POST['url']) && isset($_POST['price']) && isset($_POST['comments']))
                 {
                         $db = getDB();
                         
                         $title = $db->real_escape_string($_POST['title']);
 			$price = $db->real_escape_string($_POST['price']);
-			$comments = nl2br($db->real_escape_string($_POST['comments']));
+			$comments = $db->real_escape_string($_POST['comments']);
 			$url = $db->real_escape_string($_POST['url']);
-                        
+                                                
                         $insertQuery = "INSERT into wishlist (product_name, url, price, comment, wish_date) VALUES ('" . $title . "', '" . $url . "', " . $price . ", '" . $comments . "', NOW());";
                         $result = $db->query($insertQuery);
                         if(!$result)
