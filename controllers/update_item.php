@@ -6,11 +6,11 @@ function update_item()
 	$db = getDB();
         if(isset($_POST['title']) && isset($_POST['url']) && isset($_POST['price']) && isset($_POST['comments'])&& isset($_POST['wid']))
         {
-                $wid = mysql_real_escape_string($_POST['wid']);
-                $title = mysql_real_escape_string($_POST['title']);
-                $url = mysql_real_escape_string($_POST['url']);
-                $price = mysql_real_escape_string($_POST['price']);
-                $comments = mysql_real_escape_string(nl2br($_POST['comments']));
+                $wid = $db->real_escape_string($_POST['wid']);
+                $title = $db->real_escape_string($_POST['title']);
+                $url = $db->real_escape_string($_POST['url']);
+                $price = $db->real_escape_string($_POST['price']);
+                $comments = $db->real_escape_string(($_POST['comments']));
                 
                 $updateQuery = "UPDATE wishlist SET price=" . $price . ", product_name='" . $title . "', url='" . $url . "', comment='" . $comments . "', wish_date=NOW() WHERE id=" . $wid;
 		$result = $db->query($updateQuery);

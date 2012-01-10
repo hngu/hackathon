@@ -152,6 +152,11 @@ while ($row = $result->fetch_object()){
 	$url = htmlentities($row->url);
 	$price = htmlentities($row->price);
         $comment = htmlentities($row->comment);
+        
+        $replaceChars = array("\r\n", "\n", "\r");
+        $replace = "\\n";
+        $comment = str_replace($replaceChars, $replace, $comment);
+        
 
 	if($n%2) {
 		echo "<tr id='$prodId' class='wish_row'>";
@@ -183,7 +188,7 @@ while ($row = $result->fetch_object()){
 <script>
 function showEditBox(wid, title, url, comments, price)
 {
-    new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/>Price:<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
+    new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/>Price: $<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
         {title:"Edit item", modal:true}
         );
     
@@ -194,11 +199,11 @@ function showEditBox(wid, title, url, comments, price)
     $('input#wid').val(wid);
     
     $('input#save').click(function(){
-        var title = $('input#title').val();
-        var url = $('input#url').val();
-        var comments = $('textarea#comments').val();
-        var price = $('input#price').val();
-        var wid = $('input#wid').val();
+        var title = $.trim($('input#title').val());
+        var url = $.trim($('input#url').val());
+        var comments = $.trim($('textarea#comments').val());
+        var price = $.trim($('input#price').val());
+        var wid = $.trim($('input#wid').val());
         
         $(this).attr("disabled", true);
         $('img#loader').show();

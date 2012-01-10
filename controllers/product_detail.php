@@ -21,7 +21,7 @@ function product_detail()
                 $url = $row['url'];
                 $name = $row['product_name'];
                 $newPrice = $row['new_price'];
-                $comment = $row['comment'];
+                $comment = nl2br($row['comment']);
                 include APPLICATION_PATH . 'views'. DIRECTORY_SEPARATOR . 'product_detail.php';
         }			
 				
