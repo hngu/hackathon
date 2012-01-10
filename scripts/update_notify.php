@@ -38,6 +38,7 @@
                 catch (Exception $e)
                 {
                         mail("huy.ngu@freecause.com", "Error running update_notify", $e->getMessage());
+                        echo $e->getMessage() . "\n";
                         continue;
                 }
 		
@@ -48,47 +49,83 @@
                 if($domain == 'www.bestbuy.com')
                 {
                         $priceElement = $html->find("div#saleprice span.price");
-			$curr_price = $priceElement[0]->plaintext;
-                        $curr_price = substr(trim($curr_price), 1);
-                        
-                        if(!empty($curr_price))
+                        if(!empty($priceElement))
                         {
-                            echo $curr_price . "\n";
+                                $curr_price = $priceElement[0]->plaintext;
+                                $curr_price = substr(trim($curr_price), 1);
+                        
+                                if(!empty($curr_price))
+                                {
+                                        preg_match('/([0-9]+[\.]*[0-9]*)/', $curr_price, $match);
+                                        $curr_price = $match[1];
+                                        
+                                        if(!empty($curr_price) && is_numeric($curr_price))
+                                        {
+                                                echo "Scraped price is $curr_price \n";
+                                                
+                                                if($curr_price < $price)
+                                                {
+                                                        $priceChange = true;
+                                                }
+                                        }
+                                }
                         }
                 }
                 
                 else if($domain == 'www.amazon.com')
                 {
                         $priceElement = $html->find("div#priceBlock b.priceLarge");
-			$curr_price = $priceElement[0]->plaintext;
-                        $curr_price = substr(trim($curr_price), 1);
-                        
-                        if(!empty($curr_price))
+                        if(!empty($priceElement))
                         {
-                            echo $curr_price . "\n";
+                                $curr_price = $priceElement[0]->plaintext;
+                                $curr_price = substr(trim($curr_price), 1);
+                        
+                                if(!empty($curr_price))
+                                {
+                                    preg_match('/([0-9]+[\.]*[0-9]*)/', $curr_price, $match);
+                                    $curr_price = $match[1];
+                                        
+                                    if(!empty($curr_price) && is_numeric($curr_price))
+                                    {
+                                            echo "Scraped price is $curr_price \n";
+                                            
+                                            if($curr_price < $price)
+                                            {
+                                                    $priceChange = true;
+                                            }
+                                    }
+                                }
                         }
                 }
                 
                 else if($domain == 'www.walmart.com')
                 {
-                        $priceElement = $html->find("div#priceBlock b.priceLarge");
-			$curr_price = $priceElement[0]->plaintext;
-                        $curr_price = substr(trim($curr_price), 1);
-                        
-                        if(!empty($curr_price))
-                        {
-                            echo $curr_price . "\n";
-                        }
+                        echo "Dont know what to do with walmart!";
                 }
+                
                 else if($domain == 'www.target.com')
                 {
                         $priceElement = $html->find("div#price_main p.price");
-			$curr_price = $priceElement[0]->plaintext;
-                        $curr_price = substr(trim($curr_price), 1);
-                        
-                        if(!empty($curr_price))
+                        if(!empty($priceElement))
                         {
-                            echo $curr_price . "\n";
+                                $curr_price = $priceElement[0]->plaintext;
+                                $curr_price = substr(trim($curr_price), 1);
+                        
+                                if(!empty($curr_price))
+                                {
+                                    preg_match('/([0-9]+[\.]*[0-9]*)/', $curr_price, $match);
+                                    $curr_price = $match[1];
+                                        
+                                    if(!empty($curr_price) && is_numeric($curr_price))
+                                    {
+                                            echo "Scraped price is $curr_price \n";
+                                            
+                                            if($curr_price < $price)
+                                            {
+                                                    $priceChange = true;
+                                            }
+                                    }
+                                }
                         }
                 }
                 else 
@@ -106,10 +143,6 @@
                                 if($curr_price < $price)
                                 {
                                         $priceChange = true;
-                                        //mail("huy.ngu@freecause.com", "Price change!", "Price change at: $url for only $Curr_price");
-                                        //$updateQuery = "UPDATE wishlist SET price=" . $Curr_price . ", date_time=NOW() WHERE upc=" . $upc;
-                                        //echo $updateQuery;
-                                        //$insertUpdate = $db->query($updateQuery) or die(mysql_error());
                                 }
                         }
                 }
@@ -118,6 +151,13 @@
                 if($priceChange)
                 {
                         $updateQuery = "UPDATE wishlist SET new_price=" . $curr_price . ", wish_date=NOW() WHERE id=" . $id;
+                        echo $updateQuery . "\n";
+                        $updatePrice = $db->query($updateQuery);
+                        
+                        if(!$updatePrice)
+                        {
+                                echo "Error: $db->error";
+                        }
                 }
                 
                 $html->clear();

@@ -8,7 +8,7 @@
                 {
                         $title = mysql_real_escape_string($_POST['title']);
 			$price = mysql_real_escape_string($_POST['price']);
-			$comments = mysql_real_escape_string($_POST['comments']);
+			$comments = nl2br(mysql_real_escape_string($_POST['comments']));
 			$url = mysql_real_escape_string($_POST['url']);
                         
                         $db = getDB();
