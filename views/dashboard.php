@@ -143,7 +143,7 @@ Your Wishlist
 <div id="mainContainer">
 <p>
 <table class="wishlist">
-<tr id="top-row"><td id="tl"></td><td></td><td id="tr"></td></tr>
+<tr id="top-row"><td id="tl" colspan="2"><div class='action' style="float:right; margin-right: 20px;"><a href='#' onclick='showEditBox("", "", "", "", "0.00");'><img src='/images/add.png' title='Add New'/></a></div></td><td id="tr"></td></tr>
 <?php
 $n = 1;
 while ($row = $result->fetch_object()){
@@ -185,8 +185,9 @@ while ($row = $result->fetch_object()){
 <script>
 function showEditBox(wid, title, url, comments, price)
 {
+	var box_title = (wid) ? "Edit Item" : "Add New Item";
     new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/>Price:<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
-        {title:"Edit item", modal:true}
+        {title:box_title, modal:true}
         );
     
     $('input#title').val(title);
@@ -204,8 +205,9 @@ function showEditBox(wid, title, url, comments, price)
         
         $(this).attr("disabled", true);
         $('img#loader').show();
-        
-        $.post('http://shopping.i-wishlist.dev/?action=update_item',
+
+        var box_url = 'http://shopping.i-wishlist.dev/?action=' + ((wid) ? 'update_item' : 'add_to_wishlist');
+        $.post(box_url,
 			{title: title, url: url, price: price, comments: comments, wid: wid},
 			function(data)
 			{
