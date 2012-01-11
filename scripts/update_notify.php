@@ -4,7 +4,7 @@
         
 	$username = 'root';
 	$host = 'localhost';
-	$password = 'DyFroaHylt1';
+	$password = 'developer';
 	$database = 'hackathon';
 	
 	$db = new mysqli($host, $username, $password, $database);
@@ -37,7 +37,7 @@
 		} 
                 catch (Exception $e)
                 {
-                        mail("huy.ngu@freecause.com", "Error running update_notify", $e->getMessage());
+                        mail("feng.zheng@freecause.com", "Error running update_notify", $e->getMessage());
                         echo $e->getMessage() . "\n";
                         continue;
                 }
@@ -63,7 +63,7 @@
                                         {
                                                 echo "Scraped price is $curr_price \n";
                                                 
-                                                if($curr_price < $price)
+                                                if($curr_price != $price)
                                                 {
                                                         $priceChange = true;
                                                 }
@@ -89,7 +89,7 @@
                                     {
                                             echo "Scraped price is $curr_price \n";
                                             
-                                            if($curr_price < $price)
+                                            if($curr_price != $price)
                                             {
                                                     $priceChange = true;
                                             }
@@ -120,7 +120,7 @@
                                     {
                                             echo "Scraped price is $curr_price \n";
                                             
-                                            if($curr_price < $price)
+                                            if($curr_price != $price)
                                             {
                                                     $priceChange = true;
                                             }
@@ -140,7 +140,7 @@
                                 //Assume the first match is the actual price
                                 $curr_price = substr($matches[0], 1);
                                 
-                                if($curr_price < $price)
+                                if($curr_price != $price)
                                 {
                                         $priceChange = true;
                                 }

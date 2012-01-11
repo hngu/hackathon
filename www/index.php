@@ -44,6 +44,7 @@ $controllers = array(
 	'google_shopping',
 	'product_detail',
     'update_item',
+	'delete_item',
 	'track_page'
 );
 

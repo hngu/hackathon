@@ -138,7 +138,7 @@ $(document).ready(function() {
 </head>
 <body>
 <h2>
-Your Wishlist
+<a href='http://shopping.i-wishlist.dev' style='color: white'>Your Wishlist</a>
 </h2>
 <div id="mainContainer">
 <p>
@@ -175,7 +175,7 @@ while ($row = $result->fetch_object()){
 	echo "<div class='price_change' id='item_price_change_$prodId'></div>";
 	echo "</td>";
 	echo "<td class='actionItem' id='$prodId'>";
-	echo "<div class='action'><a href='#'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></a></div>" . "\n";
+	echo "<div class='action'><a href='#' onclick='deleteItem(\"$prodId\")'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></a></div>" . "\n";
 	echo "<div class='action'><a href='#' onclick='showEditBox(\"$prodId\", \"$prodName\",\"$url\",\"$comment\",\"$price\");'><img src='/images/pencil.png' title='Edit'/></a></div>" . "\n";
 	echo "<div class='view_more'><a href='?action=product_detail&wid=$prodId'><img src='/images/view_more.png' title='View More'/></a></div>";
 	echo "</td>";
@@ -189,6 +189,21 @@ while ($row = $result->fetch_object()){
 </body>
 <script type='text/javascript' src='javascripts/jquery.boxy.js'></script>
 <script>
+function deleteItem(wid) {
+	if(confirm('Are you sure you want to permanently delete this wishlist item?')) {
+		$.ajax({
+			 url: '?action=delete_item&wid='+wid,
+			 cache: false,
+			 async: false,
+			 dataType: "json",
+			 success: function(data) {
+				 alert(data.response);
+				 window.location = "?action=dashboard";
+			 }
+		 });
+	}
+}
+
 function showEditBox(wid, title, url, comments, price)
 {
     var box_title = (wid) ? "Edit Item" : "Add New Item";
@@ -220,13 +235,13 @@ function showEditBox(wid, title, url, comments, price)
 			{
 				if(data.isSuccess)
 				{
-                                        $('p.editForm').append(data.response);
-                                        $('img#loader').hide();
+                    $('p.editForm').append(data.response);
+                    $('img#loader').hide();
 					
 				}
 				else
 				{
-                                        $('img#loader').hide();
+                    $('img#loader').hide();
 					alert(data.response);
 				}
 			}, "json");

@@ -21,7 +21,7 @@
                         }
                         else
                         {
-                                $response = array('isSuccess' => true, 'response' => 'Added to wishlist!');
+                                $response = array('isSuccess' => true, 'response' => 'Added to wishlist! Click <a href="?action=dashboard" style="color:#FF0000;">Click here</a> to refresh the page');
                                 echo json_encode($response);
                         }
                 }
