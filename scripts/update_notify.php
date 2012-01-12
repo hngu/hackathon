@@ -4,8 +4,8 @@
         
 	$username = 'root';
 	$host = 'localhost';
-	$password = 'developer';
-	$database = 'hackathon';
+	$password = '';
+	$database = '';
 	
 	$db = new mysqli($host, $username, $password, $database);
 	
