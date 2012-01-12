@@ -134,6 +134,9 @@ $(document).ready(function() {
 		$("#"+name).html(fill_in);
 	});
 });
+$(document).ready(function() {
+	$('#sort_selector').val($.getUrlVar('sort'));
+});
 </script>
 </head>
 <body>
@@ -143,7 +146,20 @@ $(document).ready(function() {
 <div id="mainContainer">
 <p>
 <table class="wishlist">
-<tr id="top-row"><td id="tl" colspan="2"><div class='action' style="float:right; margin-right: 20px;"><a href='#' onclick='showEditBox("", "", "", "", "0.00");'><img src='/images/add.png' title='Add New'/></a></div></td><td id="tr"></td></tr>
+<tr id="top-row">
+	<td id="tl">
+		<label class="item_name" style="font-size: 16px;">Sort by:</label>
+		<select id="sort_selector" onchange="window.location.href='?action=dashboard&sort='+this.options[this.selectedIndex].value" name="sort">
+			<option value="default">Best Match</option>
+			<option value="name">A to Z</option>
+			<option value="old_to_new">Time: Oldest wish first</option>
+			<option value="new_to_old">Time: Latest wish first</option>
+			<option value="low_to_high">Price: Low to High</option>
+			<option value="high_to_low">Price: High to Low</option>
+		</select>
+	</td>
+	<td id="tr"><div class='action' style="float:right; margin-right: 20px;"><a href='#' onclick='showEditBox("", "", "", "", "0.00");'><img src='/images/add.png' title='Add New'/></a></div></td>
+</tr>
 <?php
 $n = 1;
 while ($row = $result->fetch_object()){
@@ -247,5 +263,22 @@ function showEditBox(wid, title, url, comments, price)
 			}, "json");
     });
 }
+
+$.extend({
+	  getUrlVars: function(){
+	    var vars = [], hash;
+	    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	    for(var i = 0; i < hashes.length; i++)
+	    {
+	      hash = hashes[i].split('=');
+	      vars.push(hash[0]);
+	      vars[hash[0]] = hash[1];
+	    }
+	    return vars;
+	  },
+	  getUrlVar: function(name){
+	    return $.getUrlVars()[name];
+	  }
+});
 </script>
 </html>
