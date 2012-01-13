@@ -138,6 +138,9 @@ $(document).ready(function() {
 	$('#sort_selector').val($.getUrlVar('sort'));
 });
 </script>
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher:'99118a14-3b38-493c-8594-fd6e7807832e'});</script>
 </head>
 <body>
 <h2>
@@ -183,6 +186,7 @@ while ($row = $result->fetch_object()){
 	}
 	echo "<td id='wishItem'>";
 	echo "<div class='item_name'><a href='?action=product_detail&wid=$prodId'>$prodName</a></div>";
+	echo "<div style='float:right'><span  class='st_facebook_large' st_title='$prodName' st_url='$url' displayText='Check out this cool stuff @ $$price'></span><span  class='st_twitter_large'  st_title='$prodName' st_url='$url' displayText='Check out this cool stuff @ $$price'></span><span  class='st_email_large'  st_title='$prodName' st_url='$url' displayText='Check out this cool stuff @ $$price'></span></div>";
 	$url_text = strlen($url) < 80 ? $url : (substr($url, 0, 80).'...');
 	echo "<div class='item_url'><a href='$url' target='_blank'>$url_text</a></div>";
 	echo "<div class='price_tag'>Wishlist Price: $</div><div class='current_price' id='wishlist_price_$prodId'>$price</div>";

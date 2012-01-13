@@ -62,6 +62,9 @@
 		width: 80%;
 	}
 </style>
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher:'99118a14-3b38-493c-8594-fd6e7807832e'});</script>
 </head>
 <body>
 <h2>
@@ -89,6 +92,14 @@ Product Detail:
 	<tr id="comment">
 		<td class="detail_field">Comment: </td>
 		<td class="detail_content"><?php echo $comment ?></td>
+	</tr>
+	<tr id="share">
+		<td class="detail_field">Share/Mention</td>
+		<td class="detail_content">
+			<span class='st_facebook_large' st_title='<?php echo $name ?>' st_url='<?php echo $url ?>' displayText='Check out this cool stuff @ $'+<?php echo $price ?>></span>
+			<span class='st_twitter_large'  st_title='<?php echo $name ?>' st_url='<?php echo $url ?>' displayText='Check out this cool stuff @ $'+<?php echo $price ?>></span>
+			<span class='st_email_large'  st_title='<?php echo $name ?>' st_url='<?php echo $url ?>' displayText='Check out this cool stuff @ $'+<?php echo $price ?>></span>
+		</td>
 	</tr>
 </tbody>
 <tfoot>
