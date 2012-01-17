@@ -17,7 +17,7 @@
     div#mainContainer {
         margin-left: auto;
         margin-right: auto;
-        width: 80%;
+        width: 65%;
         background-color: #FFFFFF;
         position: relative;
         color: #333333;
@@ -29,6 +29,9 @@
     	border: 0px;
     	border-collapse: collapse;
     }
+    img {
+    	border: none;
+	}
     #top-row {
     	height: 20px;
     	background-color: #C9C9C9;
@@ -41,19 +44,24 @@
 		border-radius: 14px 14px 14px 14px;
 	}
     td.actionItem {
-        width: 30%;
+        width: 200px;
     }
     tr.even{
     	background-color: #E8EDFF;
 	}
-    td#wishItem {
-       width:70%;
+    td.wishItem {
+       /*width:70%;*/
     }
     
     td.actionItem div.action {
         float: right;
-        margin: 0% 5%;
+        margin: 0% 0%;
     }
+    div.caption {
+    	float: right;
+    	font-size: 12px;
+    	margin: 15px 15px 0 0;
+	}
     .wish_row:hover td {
     	background-color: yellow;
 	}
@@ -133,6 +141,17 @@ $(document).ready(function() {
 		}
 		$("#"+name).html(fill_in);
 	});
+	$('.wishItem').each(function(index){
+		$(this).find("span").hide();
+	});
+	$('.wishItem').hover(
+		function() {
+			$(this).find("span").show();
+		},
+		function() {
+			$(this).find("span").hide();
+		}
+	);
 });
 $(document).ready(function() {
 	$('#sort_selector').val($.getUrlVar('sort'));
@@ -144,7 +163,7 @@ $(document).ready(function() {
 </head>
 <body>
 <h2>
-<a href='http://shopping.i-wishlist.dev' style='color: white'>Your Wishlist</a>
+<a href='http://shopping.i-wishlist.dev' style='color: white'>My Wishlist</a>
 </h2>
 <div id="mainContainer">
 <p>
@@ -161,7 +180,7 @@ $(document).ready(function() {
 			<option value="high_to_low">Price: High to Low</option>
 		</select>
 	</td>
-	<td id="tr"><div class='action' style="float:right; margin-right: 20px;"><a href='#' onclick='showEditBox("", "", "", "", "0.00");'><img src='/images/add.png' title='Add New'/></a></div></td>
+	<td id="tr"><div class='action' style="float:right; margin-right: 20px;"><a href='#' onclick='showEditBox("", "", "", "", "0.00");'><img src='/images/add.png' title='Add New'/></a></div><div class='caption'>Add new item</div></td>
 </tr>
 <?php
 $n = 1;
@@ -184,20 +203,21 @@ while ($row = $result->fetch_object()){
 	} else {
 		echo "<tr id='$prodId' class='wish_row even'>";
 	}
-	echo "<td id='wishItem'>";
+	echo "<td class='wishItem'>";
 	echo "<div class='item_name'><a href='?action=product_detail&wid=$prodId'>$prodName</a></div>";
 	echo "<div style='float:right'><span  class='st_facebook_large' st_title='$prodName' st_url='$url' displayText='Check out this cool stuff @ $$price'></span><span  class='st_twitter_large'  st_title='$prodName' st_url='$url' displayText='Check out this cool stuff @ $$price'></span><span  class='st_email_large'  st_title='$prodName' st_url='$url' displayText='Check out this cool stuff @ $$price'></span></div>";
-	$url_text = strlen($url) < 80 ? $url : (substr($url, 0, 80).'...');
+	$url_text = strlen($url) < 50 ? $url : (substr($url, 0, 50).'...');
 	echo "<div class='item_url'><a href='$url' target='_blank'>$url_text</a></div>";
-	echo "<div class='price_tag'>Wishlist Price: $</div><div class='current_price' id='wishlist_price_$prodId'>$price</div>";
+	echo "<div class='price_tag'>Wish: $</div><div class='current_price' id='wishlist_price_$prodId'>$price</div>";
 	echo "<div></div>";
-	echo "<div class='price_tag'>Current Price: $</div><div class='current_price' id='current_price_$prodId'>$newprice</div>";
+	echo "<div class='price_tag'>Current: $</div><div class='current_price' id='current_price_$prodId'>$newprice</div>";
 	echo "<div class='price_change' id='item_price_change_$prodId'></div>";
 	echo "</td>";
 	echo "<td class='actionItem' id='$prodId'>";
+	echo "<div class='caption'>Delete</div>";
 	echo "<div class='action'><a href='#' onclick='deleteItem(\"$prodId\")'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></a></div>" . "\n";
+	echo "<div class='caption'>Edit</div>";
 	echo "<div class='action'><a href='#' onclick='showEditBox(\"$prodId\", \"$prodName\",\"$url\",\"$comment\",\"$price\");'><img src='/images/pencil.png' title='Edit'/></a></div>" . "\n";
-	echo "<div class='view_more'><a href='?action=product_detail&wid=$prodId'><img src='/images/view_more.png' title='View More'/></a></div>";
 	echo "</td>";
 	echo "</tr>";
 	$n++;
