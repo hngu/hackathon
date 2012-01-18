@@ -104,7 +104,7 @@
 	</tr>
         <tr id="hyperlink">
 		<td class="detail_field">Image: </td>
-		<td class="detail_content"><?php echo "<a href='$image'>$image</a>"; ?></td>
+		<td class="detail_content"><?php echo "<img src='$image'/>"; ?></td>
 	</tr>
 	<tr>
 		<td class="detail_field">Current Price: </td>

@@ -190,6 +190,7 @@ while ($row = $result->fetch_object()){
 	$url = htmlentities($row->url);
 	$price = htmlentities($row->price);
         $comment = htmlentities($row->comment);
+        $image = htmlentities($row->image);
         
         $replaceChars = array("\r\n", "\n", "\r");
         $replace = "\\n";
@@ -217,7 +218,7 @@ while ($row = $result->fetch_object()){
 	echo "<div class='caption'>Delete</div>";
 	echo "<div class='action'><a href='#' onclick='deleteItem(\"$prodId\")'><img src='/images/RecycleBin_Empty-64.png' title='Delete'/></a></div>" . "\n";
 	echo "<div class='caption'>Edit</div>";
-	echo "<div class='action'><a href='#' onclick='showEditBox(\"$prodId\", \"$prodName\",\"$url\",\"$comment\",\"$price\");'><img src='/images/pencil.png' title='Edit'/></a></div>" . "\n";
+	echo "<div class='action'><a href='#' onclick='showEditBox(\"$prodId\", \"$prodName\",\"$url\",\"$comment\",\"$price\", \"$image\");'><img src='/images/pencil.png' title='Edit'/></a></div>" . "\n";
 	echo "</td>";
 	echo "</tr>";
 	$n++;
@@ -244,11 +245,11 @@ function deleteItem(wid) {
 	}
 }
 
-function showEditBox(wid, title, url, comments, price)
+function showEditBox(wid, title, url, comments, price, image)
 {
     var box_title = (wid) ? "Edit Item" : "Add New Item";
     
-    new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/> Image Url:<br/><input type='text' size='60' id='imgUrl' /><br/>Price:<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
+    new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/>Price:<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
         {title:box_title, modal:true}
         );
     
@@ -257,6 +258,7 @@ function showEditBox(wid, title, url, comments, price)
     $('textarea#comments').val(comments);
     $('input#price').val(price);
     $('input#wid').val(wid);
+    $('input#imgUrl').val(image);
     
     $('input#save').click(function(){
         var title = $.trim($('input#title').val());
