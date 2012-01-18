@@ -3,6 +3,7 @@
 <title>My Wishlist </title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="Content-Language" content="en-us">
+<link rel="stylesheet" href="stylesheets/boxy.css" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <style type="text/css">
     body {
@@ -11,15 +12,22 @@
         font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
         font-size: 11px;
         width: 100%;
+    	margin: 0;
     }    
     div#mainContainer {
         margin-left: auto;
         margin-right: auto;
-        width: 60%;
+        width: 65%;
+        background-color: #FFFFFF;
         position: relative;
+        color: #333333;
         font-size: 18px;
         height:100%;
+    	top: 50px;
     }
+    img {
+    	border: none;
+	}
     img.topDisplay {
         display: block;
         margin-left: auto;
@@ -32,7 +40,7 @@
     	font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
     	text-align: left;
 	}
-	tr {
+	tr.header tr.footer {
 		vertical-align: top;
 	}
 	tr.header {
@@ -42,11 +50,7 @@
 		background: none repeat scroll 0 0 #FFFFFF;
 		height: 200px;
 	}
-	tr:hover td {
-    	background: none repeat scroll 0 0 #EFF2FF;
-    	color: #333399;
-	}
-	td {
+	td.detail_field, td.detail_content {
 		background: none repeat scroll 0 0 #E8EDFF;
     	border-bottom: 1px solid #FFFFFF;
     	border-top: 1px solid transparent;
@@ -61,15 +65,28 @@
 	td.detail_content {
 		width: 80%;
 	}
+	a:link {
+		text-decoration: none; color: #ABAAAA;
+	}
+	a:visited {
+		text-decoration: none; color: #ABAAAA;
+	}
+	a:active {
+		text-decoration: none; color: #ABAAAA;
+	}
+	a:hover {
+		text-decoration: underline; color: #0000FF;
+	}
+	p.editForm {
+        color:#000000;
+    }
 </style>
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher:'99118a14-3b38-493c-8594-fd6e7807832e'});</script>
 </head>
 <body>
-<h2>
-Product Detail:
-</h2>
+<?php include 'include_head.php';?>
 <div id="mainContainer">
 <table id="detail_table" align="center">
 <colgroup span="1"></colgroup>

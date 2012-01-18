@@ -13,6 +13,7 @@
         font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
         font-size: 11px;
         width: 100%;
+    	margin: 0;
     }    
     div#mainContainer {
         margin-left: auto;
@@ -23,6 +24,7 @@
         color: #333333;
         font-size: 18px;
         height:100%;
+    	top: 50px;
     }
     table.wishlist {
         width: 100%;
@@ -59,7 +61,7 @@
     }
     div.caption {
     	float: right;
-    	font-size: 12px;
+    	font-size: 14px;
     	margin: 15px 15px 0 0;
 	}
     .wish_row:hover td {
@@ -162,9 +164,7 @@ $(document).ready(function() {
 <script type="text/javascript">stLight.options({publisher:'99118a14-3b38-493c-8594-fd6e7807832e'});</script>
 </head>
 <body>
-<h2>
-<a href='http://shopping.i-wishlist.dev' style='color: white'>My Wishlist</a>
-</h2>
+<?php include 'include_head.php';?>
 <div id="mainContainer">
 <p>
 <table class="wishlist">
@@ -180,7 +180,7 @@ $(document).ready(function() {
 			<option value="high_to_low">Price: High to Low</option>
 		</select>
 	</td>
-	<td id="tr"><div class='action' style="float:right; margin-right: 20px;"><a href='#' onclick='showEditBox("", "", "", "", "0.00");'><img src='/images/add.png' title='Add New'/></a></div><div class='caption'>Add new item</div></td>
+	<td id="tr"><div class='action' style="float:right; margin-right: 20px;"><a href='#' onclick='showEditBox("", "", "", "", "0.00");'><img src='/images/add.png' title='Add New'/></a></div><div class='caption'>Add New</div></td>
 </tr>
 <?php
 $n = 1;
@@ -206,7 +206,7 @@ while ($row = $result->fetch_object()){
 	echo "<td class='wishItem'>";
 	echo "<div class='item_name'><a href='?action=product_detail&wid=$prodId'>$prodName</a></div>";
 	echo "<div style='float:right'><span  class='st_facebook_large' st_title='$prodName' st_url='$url' displayText='Check out this cool stuff @ $$price'></span><span  class='st_twitter_large'  st_title='$prodName' st_url='$url' displayText='Check out this cool stuff @ $$price'></span><span  class='st_email_large'  st_title='$prodName' st_url='$url' displayText='Check out this cool stuff @ $$price'></span></div>";
-	$url_text = strlen($url) < 50 ? $url : (substr($url, 0, 50).'...');
+	$url_text = strlen($url) < 60 ? $url : (substr($url, 0, 60).'...');
 	echo "<div class='item_url'><a href='$url' target='_blank'>$url_text</a></div>";
 	echo "<div class='price_tag'>Wish: $</div><div class='current_price' id='wishlist_price_$prodId'>$price</div>";
 	echo "<div></div>";
