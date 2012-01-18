@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Language" content="en-us">
 <link rel="stylesheet" href="stylesheets/boxy.css" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <style type="text/css">
     body {
         background: url("http://static10.gog.com/www/forum_carbon/-img/body_bg.jpg") repeat-x scroll 0 0 #676767;
@@ -104,7 +105,7 @@
 	</tr>
         <tr id="hyperlink">
 		<td class="detail_field">Image: </td>
-		<td class="detail_content"><?php echo "<img src='$image'/>"; ?></td>
+		<td class="detail_content"><?php if(!empty($image)) echo "<img src='$image'/>"; ?></td>
 	</tr>
 	<tr>
 		<td class="detail_field">Current Price: </td>
@@ -122,6 +123,10 @@
 			<span class='st_email_large'  st_title='<?php echo $name ?>' st_url='<?php echo $url ?>' displayText='Check out this cool stuff @ $'+<?php echo $price ?>></span>
 		</td>
 	</tr>
+        <tr id="stats">
+		<td class="detail_field">Chart: </td>
+		<td class="detail_content" id="chart"></td>
+	</tr>
 </tbody>
 <tfoot>
 	<tr class="footer"><th colspan="2"></th></tr>
@@ -129,4 +134,27 @@
 </table>
 </div>
 </body>
+<script>
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Date');
+        data.addColumn('number', 'Price');
+        var price = <?php echo $price ?>;
+        data.addRows([
+          ['Yesterday', price],
+          ['Today', price]
+        ]);
+
+        var options = {
+          width: 400, height: 240,
+          title: 'Price History'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart'));
+        chart.draw(data, options);
+      }
+</script>
 </html>
