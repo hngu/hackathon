@@ -3,7 +3,7 @@
 	require_once "dblib.php";
         function add_to_wishlist()
         {
-                if(isset($_POST['title']) && isset($_POST['url']) && isset($_POST['price']) && isset($_POST['comments']))
+                if(isset($_POST['title']) && isset($_POST['url']) && isset($_POST['price']) && isset($_POST['comments']) && isset($_POST['image']))
                 {
                         $db = getDB();
                         
@@ -11,8 +11,9 @@
 			$price = $db->real_escape_string($_POST['price']);
 			$comments = $db->real_escape_string($_POST['comments']);
 			$url = $db->real_escape_string($_POST['url']);
+                        $image = $db->real_escape_string($_POST['image']);
                                                 
-                        $insertQuery = "INSERT into wishlist (product_name, url, price, comment, wish_date) VALUES ('" . $title . "', '" . $url . "', " . $price . ", '" . $comments . "', NOW());";
+                        $insertQuery = "INSERT into wishlist (product_name, url, price, comment, image, wish_date) VALUES ('" . $title . "', '" . $url . "', " . $price . ", '" . $comments . "', '" . $image . "', NOW());";
                         $result = $db->query($insertQuery);
                         if(!$result)
                         {

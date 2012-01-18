@@ -248,7 +248,7 @@ function showEditBox(wid, title, url, comments, price)
 {
     var box_title = (wid) ? "Edit Item" : "Add New Item";
     
-    new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/>Price:<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
+    new Boxy("<p class='editForm'><input type='hidden' style='display:none;' id='wid'/>Product:<br/><input type='text' size='60' id='title'/> <br/> Url:<br/><input type='text' size='60' id='url' /><br/>Comments:<br/><textarea rows='10' cols='47' id='comments'></textarea><br/> Image Url:<br/><input type='text' size='60' id='imgUrl' /><br/>Price:<input type='text' size='10' id='price' /><img id='loader' src='http://s3toolbar.freecause.com/Tiny/images/ajax-loader.gif' style='display:none; margin: 0px 15px 0px 15px; position:relative; top:3px;'/><br/><input type='button' id='save' value='Submit' style='float:right;'/><br/>",
         {title:box_title, modal:true}
         );
     
@@ -264,13 +264,14 @@ function showEditBox(wid, title, url, comments, price)
         var comments = $.trim($('textarea#comments').val());
         var price = $.trim($('input#price').val());
         var wid = $.trim($('input#wid').val());
+        var img = $.trim($('input#imgUrl').val());
         
         $(this).attr("disabled", true);
         $('img#loader').show();
 
         var box_url = 'http://shopping.i-wishlist.dev/?action=' + ((wid) ? 'update_item' : 'add_to_wishlist');
         $.post(box_url,
-			{title: title, url: url, price: price, comments: comments, wid: wid},
+			{title: title, url: url, price: price, comments: comments, wid: wid, image:img},
 			function(data)
 			{
 				if(data.isSuccess)

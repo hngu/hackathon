@@ -14,7 +14,7 @@ function product_detail()
         else
         {
                 $wid = $_GET['wid'];
-                $searchQuery = "SELECT product_name, url, price, new_price, comment from wishlist where id=" . $wid . " LIMIT 1";
+                $searchQuery = "SELECT product_name, url, price, new_price, comment, image from wishlist where id=" . $wid . " LIMIT 1";
 		$result = $db->query($searchQuery) or die(mysql_error());
                 $row = $result->fetch_array(MYSQLI_ASSOC);
                 $price = $row['price'];
@@ -22,6 +22,7 @@ function product_detail()
                 $name = $row['product_name'];
                 $newPrice = $row['new_price'];
                 $comment = nl2br($row['comment']);
+                $image = $row['image'];
                 include APPLICATION_PATH . 'views'. DIRECTORY_SEPARATOR . 'product_detail.php';
         }			
 				

@@ -85,6 +85,10 @@ Product Detail:
 		<td class="detail_field">Hyperlink: </td>
 		<td class="detail_content"><?php echo "<a href='$url'>$url</a>"; ?></td>
 	</tr>
+        <tr id="hyperlink">
+		<td class="detail_field">Image: </td>
+		<td class="detail_content"><?php echo "<a href='$image'>$image</a>"; ?></td>
+	</tr>
 	<tr>
 		<td class="detail_field">Current Price: </td>
 		<td class="detail_content"><?php echo '$'.$price ?></td>
