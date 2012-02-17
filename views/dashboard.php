@@ -227,6 +227,7 @@ while ($row = $result->fetch_object()){
 <tr id="bottom-row"><td id="bl"></td><td></td><td id="br"></td></tr>
 </table>
 </div>
+<script type="text/javascript" src="http://s.skimresources.com/js/11858X828882.skimlinks.js"></script>
 </body>
 <script type='text/javascript' src='javascripts/jquery.boxy.js'></script>
 <script>
