@@ -1,0 +1,22 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+</head>
+<body>
+<script type = 'text/javascript'>
+var toolbar = null;
+function ToolBarInit(t) {
+	toolbar = t;
+	var wishlist_json = {"toolid":toolbar.toolid,
+			"userid":toolbar.parseUrlVars('%userid'),
+			"username":toolbar.parseUrlVars('%username'),
+			"url":toolbar.GetVariable('prod_url'),
+			"price":toolbar.GetVariable('prod_price'),
+			"name":toolbar.GetVariable('prod_name'),
+			"available":toolbar.GetVariable('prod_available'),
+			"image":toolbar.GetVariable('prod_image')};
+	$.post('http://shopping.i-wishlist.dev:3000/add', wishlist_json, function(data) {alert(data.msg);}, "json");
+}
+</script>
+</body>
+</html>
