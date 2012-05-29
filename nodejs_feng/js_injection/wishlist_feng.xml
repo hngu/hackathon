@@ -1,0 +1,10 @@
+<toolbar xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<toolbaritem cid="78327" preview_text="ScriptHost">
+<fctb_include_js random_function="0" init="1">
+<target><![CDATA[www.amazon.com]]></target>
+        <![CDATA[
+			<script src="http://s3pr.freecause.com/wishlist_feng_popup.js"></script>
+        ]]>
+</fctb_include_js>
+</toolbaritem>
+</toolbar>
