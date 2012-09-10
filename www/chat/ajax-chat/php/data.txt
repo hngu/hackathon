@@ -1,0 +1,87 @@
+a:10:{s:4:"time";a:1:{s:2:"df";i:1327002865;}s:4:"away";a:1:{s:2:"df";b:1;}s:4:"gndr";a:1:{s:2:"df";s:4:"none";}s:4:"stat";a:1:{s:2:"df";s:4:"none";}s:4:"room";a:1:{s:2:"df";s:9:"Main Room";}s:4:"user";a:1:{s:2:"df";d:1327071447.60457706451416015625;}s:4:"pass";a:1:{s:2:"df";s:32:"502be739578c470a14e976b194cf9b74";}s:4:"data";a:24:{i:0;s:31:"+
+Main Room
+hello
+none
+none";i:1;a:5:{s:4:"time";i:1326998782;s:4:"room";s:9:"Main Room";s:4:"user";s:5:"hello";s:4:"priv";s:1:".";s:4:"data";s:47:"m
+#70b0b0
+none
+none
+hello
+.
+what is this?";}i:2;s:30:"+
+Main Room
+mary
+none
+none";i:3;s:11:"s
+hello
+-";i:4;a:5:{s:4:"time";i:1326998813;s:4:"room";s:9:"Main Room";s:4:"user";s:4:"mary";s:4:"priv";s:1:".";s:4:"data";s:46:"m
+#507070
+none
+none
+mary
+.
+I&#039;m mary";}i:5;s:11:"s
+hello
++";i:6;a:5:{s:4:"time";i:1326998818;s:4:"room";s:9:"Main Room";s:4:"user";s:5:"hello";s:4:"priv";s:1:".";s:4:"data";s:45:"m
+#70b0b0
+none
+none
+hello
+.
+oh, really?";}i:7;a:5:{s:4:"time";i:1326998825;s:4:"room";s:9:"Main Room";s:4:"user";s:4:"mary";s:4:"priv";s:1:".";s:4:"data";s:37:"m
+#507070
+none
+none
+mary
+.
+Yes!";}i:8;s:11:"s
+hello
+-";i:9;s:10:"s
+mary
+-";i:10;s:18:"-
+Main Room
+mary";i:11;s:11:"s
+hello
++";i:12;a:5:{s:4:"time";i:1326998880;s:4:"room";s:9:"Main Room";s:4:"user";s:5:"hello";s:4:"priv";s:1:".";s:4:"data";s:40:"m
+#70b0b0
+none
+none
+hello
+.
+hello?";}i:13;s:11:"s
+hello
+-";i:14;s:19:"-
+Main Room
+hello";i:15;s:30:"+
+Main Room
+feng
+none
+none";i:16;a:5:{s:4:"time";i:1326999041;s:4:"room";s:9:"Main Room";s:4:"user";s:4:"feng";s:4:"priv";s:1:".";s:4:"data";s:41:"m
+#70b0b0
+none
+none
+feng
+.
+Hey guys";}i:17;s:10:"s
+feng
+-";i:18;s:18:"-
+Main Room
+feng";i:19;s:28:"+
+Main Room
+df
+none
+none";i:20;s:30:"+
+Main Room
+gaga
+none
+none";i:21;s:8:"s
+df
+-";i:22;a:5:{s:4:"time";i:1327002902;s:4:"room";s:9:"Main Room";s:4:"user";s:4:"gaga";s:4:"priv";s:2:"df";s:4:"data";s:36:"m
+#90d030
+none
+none
+gaga
+df
+he";}i:23;s:18:"-
+Main Room
+gaga";}s:4:"kick";a:0:{}s:4:"mute";a:0:{}}
